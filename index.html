@@ -3388,10 +3388,11 @@ async function excluirOS(){
 async function gerarComprovante(){
   if(!AUTH){showToast('Entre com Google primeiro.');return;}
   if(!COS){showToast('Nenhuma OS selecionada.');return;}
-  
+  if(!PDF_BASE_ID){showToast('❌ ID do PDF base não configurado. Acesse Configurações e salve o ID do arquivo.');console.error('PDF_BASE_ID vazio');return;}
+
   try{
     showToast('📄 Gerando comprovante...');
-    
+
     // Verificar se pdf-lib está carregado
     if(typeof PDFLib==='undefined'||!PDFLib.PDFDocument){
       showToast('❌ Biblioteca PDF não carregada. Recarregue a página.');
@@ -3412,9 +3413,6 @@ async function gerarComprovante(){
     }
     
     const numeroOS=COS.os;
-    
-    // ID do PDF base no Google Drive
-    const PDF_BASE_ID='1g4V-w8FILXchz9NAmc5aV5ju9YyhEPbs';
     
     // 1. Baixar PDF base do Drive como blob
     showToast('📥 Baixando template...');
